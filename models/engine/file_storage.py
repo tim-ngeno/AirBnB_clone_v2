@@ -9,7 +9,7 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """ Returns the dictionary """
+        """ Returns list of objects of one type of class """
         my_obj = {}
         if cls is None:
             return (self.__objects)
