@@ -15,5 +15,7 @@ class City(BaseModel, Base):
         String(60), ForeignKey("states.id"), nullable=False
     )
 
-    # Create a relationship with states
+    # Create a relationship with states and places
     state = relationship("State", back_populates="cities")
+    places = relationship("Place", back_populates="cities",
+                          cascade="all, delete")
