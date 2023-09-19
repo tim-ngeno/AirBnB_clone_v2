@@ -1,16 +1,6 @@
 #!/usr/bin/python3
-<<<<<<< HEAD
-""" New engine that connects to the database and also sets up SQLAlchemy"""
-
-import os
-from sqlalchemy import (create_engine)
-from sqlalchemy.orm import sessionmaker, scoped_session
-from models.base_model import Base
-from models.user import User
-from models.amenity import Amenity
-=======
 """
-DB Storage module
+New engine that connects to the database and also sets up SQLAlchemy
 """
 import os
 from sqlalchemy import create_engine
@@ -18,32 +8,22 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from models.base_model import Base
 from models.amenity import Amenity
 from models.base_model import BaseModel
->>>>>>> d1e2059a5584e9b102bf82defe8031ba44da06fa
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
-<<<<<<< HEAD
 from models import classes
 import models
-
-
-class DBStorage:
-    """ Defines class """
-=======
-from models.user import User
 
 
 class DBStorage:
     """
     Defines a DB storage class to handle storage in the database
     """
->>>>>>> d1e2059a5584e9b102bf82defe8031ba44da06fa
     __engine = None
     __session = None
 
     def __init__(self):
-<<<<<<< HEAD
         """ Initializes SQLAlchemy engine """
         user = os.getenv("HBNB_MYSQL_USER")
         passwd = os.getenv("HBNB_MYSQL_PWD")
@@ -98,7 +78,6 @@ class DBStorage:
         """ Defines close method """
         if self.__session:
             self.__session.close()
-=======
         """
         Initializes a DBStorage instance
         """
@@ -164,4 +143,3 @@ class DBStorage:
                                expire_on_commit=False)
         ScopedSession = scoped_session(Session)
         self.__session = ScopedSession()
->>>>>>> d1e2059a5584e9b102bf82defe8031ba44da06fa
