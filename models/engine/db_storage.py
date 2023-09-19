@@ -3,12 +3,15 @@
 New engine that connects to the database and also sets up SQLAlchemy
 """
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import scoped_session, sessionmaker
+from sqlalchemy import (create_engine)
+from sqlalchemy.orm import sessionmaker, scoped_session
 from models.base_model import Base
-from models import Amenity, City, Place, Review, State
-from models.base_model import BaseModel
-from models import classes
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import models
 
 
@@ -27,10 +30,8 @@ class DBStorage:
         db = os.getenv("HBNB_MYSQL_DB")
 
         self.__engine = create_engine(
-                'mysql+mysqldb://{}:{}@{}/{}?pool_pre_ping=True'.format(
-                    user, passwd, host, db
-                    )
-                )
+                'mysql+mysqldb://{}:{}@{}/{}'.format(
+                    user, passwd, host, db), pool_pre_ping=True)
 
         if os.getenv('HBNB_ENV') == 'test':
             Base.metadata.drop_all(self.__engine)
