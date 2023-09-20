@@ -75,7 +75,6 @@ class Place(BaseModel, Base):
         @amenities.setter
         def amenities(self, obj):
             """ Appends Amenity.id to amenity_ids """
-            
             if isinstance(obj, Amenity):
                 if obj.id not in self.amenity_ids:
                     self.amenity_ids.append(obj.id)
