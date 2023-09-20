@@ -59,3 +59,22 @@ class Place(BaseModel, Base):
                     review_list.append(review)
 
             return review_list
+
+        @property
+        def amenities(self):
+            """ Returns list of Amenity instances """
+
+            amenities_list = []
+            for amenity in models.storage.all(Amenity).values():
+                if amenity.id in self.amenity_ids:
+                    amenities_list.append(ammenity)
+
+            return amenities_list
+
+        @amenities.setter
+        def amenities(self, obj):
+            """ Appends Amenity.id to amenity_ids """
+            
+            if isinstance(obj, Amenity):
+                if obj.id not in self.amenity_ids:
+                    self.amenity_ids.append(obj.id)
