@@ -29,13 +29,26 @@ sudo chown -R ubuntu:ubuntu /data/
 
 # Set up the server to server `hbnb_static`
 printf %s "server {
-       listen 80;
+       listen 80 default_server;
+       listen [::]:80 default_server;
+
+       add_header X-Served-By $HOSTNAME;
 
        root /etc/nginx/html;
        index index.html;
 
        location /hbnb_static {
-       	    alias /data/web_static/current/;
+           alias /data/web_static/current/;
+       }
+
+       location /redirect_me {
+           return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+       }
+
+       error_page 404 /err_404.html;
+       location /err_404.html {
+           root /etc/nginx/html;
+	   internal;
        }
 }" | sudo tee /etc/nginx/sites-available/default
 
