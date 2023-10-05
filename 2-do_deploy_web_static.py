@@ -13,10 +13,7 @@ def do_deploy(archive_path):
     """
     Distributes the archive file to the web servers
     """
-    if not os.path.exists(archive_path):
-        return False
-
-    try:
+    if os.path.exists(archive_path):
         # Upload archive to /tmp/ directory
         put(archive_path, "/tmp/")
 
@@ -44,7 +41,4 @@ def do_deploy(archive_path):
         print("New version deployed!")
         return True
 
-    except Exception as e:
-        print(e)
-        print("Deployment failed...")
-        return False
+    return False
