@@ -71,3 +71,93 @@ The persistence of data in the HBnB project is managed using the `save` method. 
 ## Conclusion
 
 Using SQLAlchemy as an ORM in the HBnB project has made it possible to abstract the intricacies of dealing directly with a relational database. The well-defined models and their relationships, combined with the ORM, have made data manipulation tasks seamless, efficient, and secure.
+
+
+
+---
+# 0x03. AirBnB clone - Deploy static
+
+## Table of Contents
+1. [Introduction to Fabric](#introduction-to-fabric)
+2. [Deploying Code to Servers](#deploying-code-to-servers)
+3. [Understanding tgz Archives](#understanding-tgz-archives)
+4. [Executing Fabric Commands](#executing-fabric-commands)
+5. [Managing Nginx Configuration](#managing-nginx-configuration)
+6. [Distinguishing Between `root` and `alias` in Nginx](#distinguishing-between-root-and-alias-in-nginx)
+
+---
+
+### 1. Introduction to Fabric
+
+**Fabric** is a high-level Python (2.7 through 3.4+) library designed to simplify the execution of shell commands remotely over SSH. It provides a suite of basic operations and uses them as the building blocks for creating more complex workflows. With Fabric:
+
+- Streamlining application deployment becomes straightforward.
+- Configuration management gets centralized.
+- Task automation is at your fingertips.
+
+---
+
+### 2. Deploying Code to Servers 
+
+Deploying your application or script to a server should be a routine and error-free process. Here's how you can achieve that with Fabric:
+
+1. **Create a `fabfile.py`**: This is where you'll store your tasks and commands.
+2. **Execute with `fab`**: Once your tasks are defined, running them is as simple as invoking the `fab` command.
+
+Fabric provides seamless error handling, parallel execution, and intricate execution strategies, making the deployment process efficient and reliable.
+
+---
+
+### 3. Understanding tgz Archives
+
+A **tgz archive**, known by its full name as `.tar.gz`, is a fusion of TAR and GZIP. Here's the breakdown:
+
+- **TAR (Tape Archive)**: Originally designed for tape drives, it groups multiple files into a single file, making it easier to handle.
+  
+- **GZIP (GNU Zip)**: This is a compression utility, which takes a TAR archive and reduces its size.
+
+When you combine both, you get a `.tgz` or `.tar.gz` archive: a bundled and compressed set of files that is both portable and space-efficient.
+
+---
+
+### 4. Executing Fabric Commands 
+
+Using Fabric commands is straightforward. Here's how:
+
+**Locally**:
+```bash
+fab -H localhost your_task_name
+```
+Executing tasks locally helps in testing them before deployment to a live server.
+
+**Remotely**:
+```bash
+fab -H remote_server_ip your_task_name
+```
+This ensures that the task is executed on a specified remote server, making deployments and remote management a breeze.
+
+---
+
+### 5. Managing Nginx Configuration
+
+Nginx is one of the most popular web servers, and managing its configuration is crucial for performance and security. Here's a look at managing configurations using Fabric:
+
+1. **Transfer Configuration**: With Fabric, you can easily transfer updated configurations to remote servers.
+   
+2. **Apply Changes**: After updating the configuration, you'd typically need to reload or restart Nginx to apply those changes. 
+
+Fabric streamlines these steps, making server management efficient and reducing the risk of manual errors.
+
+---
+
+### 6. Distinguishing Between `root` and `alias` in Nginx
+
+Navigating the nuances of Nginx configuration can be tricky. Here's a clarification on two commonly misunderstood directives:
+
+- **root**: Defines the root directory for the current request. If set as `root /var/www/html;`, a request to `http://yourserver/image.jpg` would look for `/var/www/html/image.jpg`.
+
+- **alias**: This provides a direct replacement of the URI path. For instance, with `location /images/ { alias /var/graphics/; }`, a request to `http://yourserver/images/image.jpg` fetches `/var/graphics/image.jpg`.
+
+The key distinction is how each directive interprets the location path. With `root`, the path is appended to the root directory, whereas `alias` directly maps the location path to a filesystem path.
+
+---
