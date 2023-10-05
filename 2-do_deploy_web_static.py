@@ -14,19 +14,30 @@ def do_deploy(archive_path):
     Distributes the archive file to the web servers
     """
     if os.path.exists(archive_path):
-        archive = archive_path.split('/')[1]
-        a_path = "/tmp/{}".format(archive)
-        folder = archive.split('.')[0]
-        f_path = "/data/web_static/releases/{}/".format(folder)
+       # Upload archive to /tmp/ directory
+        put(archive_path, "/tmp/")
 
-        put(archive_path, a_path)
-        run("mkdir -p {}".format(f_path))
-        run("tar -xzf {} -C {}".format(a_path, f_path))
-        run("rm {}".format(a_path))
-        run("mv -f {}web_static/* {}".format(f_path, f_path))
-        run("rm -rf {}web_static".format(f_path))
+        # Extract filename without extension
+        basefile = os.path.basename(archive_path)
+        filename = basefile.split(".")[0]
+
+        data_path = "/data/web_static/releases"
+        # Create directory if it doesn't exist
+        run("mkdir -p {}/{}".format(data_path, filename))
+
+        # uncompress the archive to the folder on the web servers
+        run("tar -xzf /tmp/{} -C {}/{}".
+            format(basefile, data_path, filename))
+
+        # delete the archive from the web servers
+        run("rm /tmp/{}".format(basefile))
+
+        # delete the symbolic link
         run("rm -rf /data/web_static/current")
-        run("ln -s {} /data/web_static/current".format(f_path))
+
+        # create a new symbolic link
+        run("ln -s {}/{} /data/web_static/current".
+            format(data_path, filename))
 
         print("New version deployed!")
         return True
