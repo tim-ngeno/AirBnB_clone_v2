@@ -34,7 +34,7 @@ printf %s "server {
        root /var/www/html;
        index index.html;
 
-       location /hbnb_static {
+       location /hbnb_static/ {
            alias /data/web_static/current/;
        }
 
