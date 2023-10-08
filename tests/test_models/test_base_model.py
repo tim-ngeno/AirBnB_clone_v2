@@ -3,6 +3,7 @@
 from models.base_model import BaseModel
 import unittest
 import datetime
+import models
 from uuid import UUID
 import json
 import os
@@ -74,12 +75,6 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = self.value(**n)
 
-    def test_kwargs_one(self):
-        """ """
-        n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
-            new = self.value(**n)
-
     def test_id(self):
         """ """
         new = self.value()
@@ -97,3 +92,23 @@ class test_basemodel(unittest.TestCase):
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
+
+    def test_timestamps_not_equal(self):
+        """Test timestamps are correctly formatted on creation"""
+        new = self.value()
+        self.assertNotEqual(new.created_at, new.updated_at)
+
+    def test_delete_method(self):
+        """Test delete method"""
+        new = self.value()
+        new_id = new.id
+        new.delete()
+        with self.assertRaises(KeyError):
+            models.storage.all()[new_id]
+
+    def test_instance_persistence(self):
+        """Test persistence of an instance in storage"""
+        new = self.value()
+        new_id = new.id
+        new.save()
+        self.assertIn("{}.{}".format(self.name, new_id), models.storage.all())

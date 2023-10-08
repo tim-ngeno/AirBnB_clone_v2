@@ -36,6 +36,9 @@ class BaseModel:
             #     kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
             # del kwargs['__class__']
             # self.__dict__.update(kwargs)
+            if '__class__' in kwargs:
+                del kwargs['__class__']
+
             if "id" not in kwargs:
                 self.id = str(uuid.uuid4())
             if "created_at" not in kwargs:
@@ -48,9 +51,6 @@ class BaseModel:
             else:
                 kwargs['updated_at'] = datetime.strptime(
                     kwargs['updated_at'], DATE_FORMAT)
-
-            if '__class__' in kwargs:
-                del kwargs['__class__']
 
             # Setting instance attributes from kwargs
             for key, value in kwargs.items():
@@ -71,12 +71,13 @@ class BaseModel:
         dictionary = dict(self.__dict__)
 
         # Remove _sa_instance_state if it exists
-        dictionary.pop('_sa_instance_state', None)
-
-        dictionary['__class__'] = (
-            str(type(self)).split('.'))[-1].split('\'')[0]
-        dictionary['created_at'] = self.created_at.isoformat()
-        dictionary['updated_at'] = self.updated_at.isoformat()
+        if '_sa_instance_state' in dictionary:
+            del dictionary['_sa_instance_state']
+        else:
+            dictionary['__class__'] = (
+                str(type(self)).split('.'))[-1].split('\'')[0]
+            dictionary['created_at'] = self.created_at.isoformat()
+            dictionary['updated_at'] = self.updated_at.isoformat()
         return dictionary
 
     def delete(self):
@@ -88,4 +89,4 @@ class BaseModel:
     def __str__(self):
         """Returns a string representation of the instance"""
         cls = (str(type(self)).split('.')[-1]).split('\'')[0]
-        return '[{}] ({}) {}'.format(cls, self.id, self.__dict__)
+        return '[{}] ({}) {}'.format(cls, self.id, self.to_dict())
