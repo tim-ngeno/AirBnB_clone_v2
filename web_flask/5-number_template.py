@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """Starting a Flask Web App"""
-from flask import Flask, abort, render_template
+from flask import Flask, render_template
 from markupsafe import escape
 
 app = Flask(__name__)
@@ -49,11 +49,8 @@ def number_route(n):
 @app.route("/number_template/<n>", strict_slashes=False)
 def number_template_route(n):
     """Defines the number route URL with a template"""
-    try:
-        n = int(n)
-        return render_template("5-number.html", n=n)
-    except ValueError:
-        abort(404)
+    n = int(n)
+    return render_template("5-number.html", n=n)
 
 
 if __name__ == "__main__":
