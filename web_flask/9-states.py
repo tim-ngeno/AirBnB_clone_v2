@@ -30,6 +30,9 @@ def state_id(id):
         if state.id == id:
             single_state = state
             break
+    if os.getenv("HBNB_TYPE_STORAGE") != "db" and single_state:
+        single_state.cities = single_state.cities()
+
     return render_template("9-states.html", states=None,
                            single_state=single_state)
 
