@@ -134,6 +134,22 @@ Executing tasks locally helps in testing them before deployment to a live server
 ```bash
 fab -H remote_server_ip your_task_name
 ```
+<<<<<<< HEAD
+(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", name "Todd the Toad")
+(hbnb)
+(hbnb) User.all()
+(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'name': 'Todd the Toad', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
+```
+###### Example 3: Update User (by dictionary)
+Usage: <class_name>.update(<_id>, <dictionary>)
+```
+(hbnb) User.update("98bea5de-9cb0-4d78-8a9d-c4de03521c30", {'name': 'Fred the Frog', 'age': 9})
+(hbnb)
+(hbnb) User.all()
+(hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
+```
+<br>
+=======
 This ensures that the task is executed on a specified remote server, making deployments and remote management a breeze.
 
 ---
@@ -161,3 +177,4 @@ Navigating the nuances of Nginx configuration can be tricky. Here's a clarificat
 The key distinction is how each directive interprets the location path. With `root`, the path is appended to the root directory, whereas `alias` directly maps the location path to a filesystem path.
 
 ---
+>>>>>>> 87db89e6174899890009429bb5f13ce818055d4f
