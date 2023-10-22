@@ -149,7 +149,6 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 (hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
 ```
 <br>
-=======
 This ensures that the task is executed on a specified remote server, making deployments and remote management a breeze.
 
 ---
@@ -159,7 +158,7 @@ This ensures that the task is executed on a specified remote server, making depl
 Nginx is one of the most popular web servers, and managing its configuration is crucial for performance and security. Here's a look at managing configurations using Fabric:
 
 1. **Transfer Configuration**: With Fabric, you can easily transfer updated configurations to remote servers.
-   
+
 2. **Apply Changes**: After updating the configuration, you'd typically need to reload or restart Nginx to apply those changes. 
 
 Fabric streamlines these steps, making server management efficient and reducing the risk of manual errors.
@@ -177,4 +176,3 @@ Navigating the nuances of Nginx configuration can be tricky. Here's a clarificat
 The key distinction is how each directive interprets the location path. With `root`, the path is appended to the root directory, whereas `alias` directly maps the location path to a filesystem path.
 
 ---
->>>>>>> 87db89e6174899890009429bb5f13ce818055d4f
