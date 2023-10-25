@@ -17,15 +17,14 @@ def cities_by_states_route():
     Displays a list of cities and states
     """
     states = storage.all(State)
-
-    if os.getenv("HBNB_TYPE_STORAGE") == "db":
-        sorted_states = sorted(states.values(),
-                               key=lambda state: state.name)
-    else:
-        for state in states.values():
-            state.cities = state.cities()
-        sorted_states = sorted(states.values(),
-                               key=lambda state: state.name)
+    sorted_states = sorted(states.values(), key=lambda x: x.name)
+    for state in sorted_states:
+        if os.getenv("HBNB_TYPE_STORAGE") == "db":
+            state.cities = sorted(state.cities,
+                                  key=lambda c: c.name)
+        else:
+            state.cities = sorted(state.cities(),
+                                  key=lambda c: c.name)
     return render_template("8-cities_by_states.html",
                            states=sorted_states)
 
