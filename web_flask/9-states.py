@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """Describe states by state id"""
 
-from flask import Flask, render_template
+from flask import Flask, abort, render_template
 from models import storage
 from models.state import State
 from models.city import City
@@ -25,16 +25,20 @@ def states():
 def state_id(id):
     """Display cities of a specific state by ID"""
     states = storage.all(State)
-    single_state = None
-    for state in states.values():
-        if state.id == id:
-            single_state = state
-            break
-    if os.getenv("HBNB_TYPE_STORAGE") != "db" and single_state:
-        single_state.cities = single_state.cities()
+    state = states.get("State.{}".format(id))
+
+    if state:
+        if os.getenv("HBNB_TYPE_STORAGE") == "db":
+            state.cities = sorted(state.cities,
+                                  key=lambda c: c.name)
+        else:
+            state.cities = sorted(state.cities(),
+                                  key=lambda c: c.name)
+    else:
+        abort(404)
 
     return render_template("9-states.html", states=None,
-                           single_state=single_state)
+                           single_state=state)
 
 
 @app.teardown_appcontext
